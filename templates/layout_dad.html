@@ -3,45 +3,58 @@
 <html lang="en">
 
 <head>
-<style>
-h1 {text-align: center;}
-h2 {text-align: center;}
-p {text-align: center;}
-div {text-align: center;}
-ul {
-  display: table;
-  margin: 0 auto;
-}
-</style>
-{{dropzone.load_css()}}
-{{ dropzone.style('border: 2px dashed #0087F7; margin: 10%; min-height: 200px; background-color: #bae0ff;border-radius: 25px;') }}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Flask Multiple Files Upload Example</title>
+    <!-- Load Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {{ dropzone.load_css() }}
+    {{ dropzone.style('border: 2px dashed #0087F7; margin: 10%; min-height: 200px; background-color: #bae0ff;border-radius: 25px;') }}
 </head>
 
-<title>Python Flask Multiple Files Upload Example</title>
-<h1>File uploader</h1>
-<hr width="100" align="center">
-<h2>Upload file</h2>
-<p>
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-<ul class=flashes>
-{% for message in messages %}
-<li>{{ message }}</li>
-{% endfor %}
-</ul>
-{% endif %}
-{% endwith %}
-</p>
-{{ dropzone.create(action='index') }}
-  {{ dropzone.load_js() }}
-  {{ dropzone.config() }}
-<h2>Uploaded files</h2>
-<ul>
-  {% for file in files %}
-  <li><a href="https://{{config.AZURE_STORAGE_ACCOUNT}}.blob.core.windows.net/{{config.AZURE_STORAGE_CONTAINER}}/{{file}}">{{ file }}</a></li>
-  {% endfor %}
-</ul>
-<p>
-  <input type="text" id="srch" name="search" placeholder="Used storage: {{size}}">
-  </p>
+<body>
+    <div class="container">
+        <h1 class="text-center my-5">File Uploader</h1>
+        <hr>
+        <h2 class="my-3">Upload File</h2>
+        <p>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul class="flashes">
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+        </p>
+        <div class="my-5">
+            {{ dropzone.create(action='index') }}
+            {{ dropzone.load_js() }}
+            {{ dropzone.config() }}
+        </div>
+        <h2 class="my-3">Uploaded Files</h2>
+        <ul>
+            {% for file in files %}
+            <li><a href="https://{{config.AZURE_STORAGE_ACCOUNT}}.blob.core.windows.net/{{config.AZURE_STORAGE_CONTAINER}}/{{file}}">{{ file }}</a></li>
+            {% endfor %}
+        </ul>
+        <p class="my-5">
+            <input type="text" id="srch" name="search" placeholder="Used storage: {{size}}" class="form-control">
+        </p>
+    </div>
+
+    <!-- Load Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1PiBUPaQ"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNVQ8ew"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
 </html>
