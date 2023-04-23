@@ -1,0 +1,47 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+<style>
+h1 {text-align: center;}
+h2 {text-align: center;}
+p {text-align: center;}
+div {text-align: center;}
+ul {
+  display: table;
+  margin: 0 auto;
+}
+</style>
+{{dropzone.load_css()}}
+{{ dropzone.style('border: 2px dashed #0087F7; margin: 10%; min-height: 200px; background-color: #bae0ff;border-radius: 25px;') }}
+</head>
+
+<title>Python Flask Multiple Files Upload Example</title>
+<h1>File uploader</h1>
+<hr width="100" align="center">
+<h2>Upload file</h2>
+<p>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul class=flashes>
+{% for message in messages %}
+<li>{{ message }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+</p>
+{{ dropzone.create(action='index') }}
+  {{ dropzone.load_js() }}
+  {{ dropzone.config() }}
+<h2>Uploaded files</h2>
+<ul>
+  {% for file in files %}
+  <li><a href="https://{{config.AZURE_STORAGE_ACCOUNT}}.blob.core.windows.net/{{config.AZURE_STORAGE_CONTAINER}}/{{file}}">{{ file }}</a></li>
+  {% endfor %}
+</ul>
+<p>
+  <input type="text" id="srch" name="search" placeholder="Used storage: {{size}}">
+  </p>
+</html>
